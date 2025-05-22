@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thank You - URL Shortener</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <% if(shouldrender) {%>
+    <header>
+      <div class="container header-container">
+        <h1><a href="/">URL Shortener</a></h1>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact Us</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container thankyou-main">
+      <div class="thankyou-box">
+        <h2>
+          Thank You <b style="color: orange"><%=username %> </b> for Contacting
+          Us!
+        </h2>
+        <p>We have received your message and will get back to you shortly.</p>
+        <a href="/" class="btn-primary">Back to Home</a>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container footer-container">
+        <p>© 2025 URL Shortener. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+  <% } %>
+</html>

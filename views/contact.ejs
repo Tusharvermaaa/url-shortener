@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Contact Us - Shortly</title>
-  <link rel="stylesheet" href="/css/style.css" />
-</head>
-<body>
-  <%- include('partials/header') %>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Contact Us - Shortly</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %>
 
-  <main class="contact">
-    <h2>Contact Us</h2>
-    <form action="/contact" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" placeholder="Your Message..." required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </main>
+    <main class="contact">
+      <h2>Contact Us</h2>
+      <form action="/contact" method="POST">
+        <input type="text" name="username" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea
+          name="message"
+          placeholder="Your Message..."
+          required
+        ></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </main>
 
-  <%- include('partials/footer') %>
-</body>
+    <%- include('partials/footer') %>
+  </body>
 </html>
