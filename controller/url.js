@@ -12,7 +12,9 @@ async function handletheposturl(req, res)
     urlmodel.create(newurlindb);
     res.status(200).json({"status":"pending" , ...newurlindb});
 }
-
+// TypeError: Cannot read properties of null (reading 'visithistory')
+//     at redirecttosite (C:\Users\tusha\OneDrive\Desktop\node\yt----------\7(project2-acctogarg)with_mvc\controller\url.js:28:16)
+//     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
 async function showallurlsbyme(req, res)
 {
   
@@ -25,6 +27,8 @@ async function redirecttosite(req, res)
 {
     const id=req.params.id;
     const thaturlobj=await urlmodel.findOne({shortid:id});
+    if(!thaturlobj)
+      return   res.json({"error":`<h1>invalid link error - please check the url you have entered ✅ or ❌</h1>`});
     thaturlobj.visithistory.push({timestamp : Date.now()});
    await thaturlobj.save();    
 res.redirect( `http://${thaturlobj.incomingwebsite}` );
@@ -34,6 +38,7 @@ async function sendanalytics(req, res)
 {
     
     const userobj=await urlmodel.findOne({shortid: req.params.id});
+    if(!userobj) return res.status(404).json({"status": " no any url found "});
     return res.status(200).json({"user visited": userobj.visithistory.length});
 }
 async function deleteparticular(req, res)
@@ -52,4 +57,8 @@ async function aboutpagehandler(req, res)
          "password ": "nahi bataunga"
     });
 }
-module.exports= {handletheposturl, showallurlsbyme ,redirecttosite , sendanalytics  , deleteparticular , homepagehandler , aboutpagehandler};
+async function contactpagehandler(req, res)
+{
+    res.render('contact' , {"contact": " this is contact page , happy coding "});
+}
+module.exports= {handletheposturl, showallurlsbyme ,redirecttosite , sendanalytics  , deleteparticular , homepagehandler , aboutpagehandler , contactpagehandler};

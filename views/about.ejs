@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <title>About - Shortly</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-     <h3>this is the about page , coming from ejs file , thank you      </h3>
-     <br>
-     <div style="color: green;"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis repellendus tenetur error quasi ad laborum similique temporibus, vero voluptatibus, modi delectus voluptates. Provident excepturi debitis voluptates harum. Voluptatibus voluptas tempore cumque quis suscipit.</div>
+  <%- include('partials/header') %>
+
+  <main class="about">
+    <h2>About Us</h2>
+    <p>Shortly is a simple and fast URL shortener. We help you share long links in a compact and beautiful way.</p>
+    <p>Powered by Node.js, Express, MongoDB, and EJS.</p>
+  </main>
+
+  <%- include('partials/footer') %>
 </body>
 </html>
