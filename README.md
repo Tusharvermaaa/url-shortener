@@ -1,18 +1,19 @@
-# 🔗 URL Shortener with Node.js, Express & MongoDB
+# 🔗 URL Shortener — Node.js, Express, MongoDB, EJS
 
-A simple and functional **URL Shortener API** built using **Node.js**, **Express**, and **MongoDB (local)**.  
-It allows you to create, retrieve, delete, and redirect shortened URLs easily.
+An elegant, responsive **URL Shortener Web App** built with **Node.js**, **Express.js**, **MongoDB**, and **EJS view engine**.  
+It accepts URLs via a user-friendly form and returns a clean, shortened version — displayed dynamically on the same page.
 
 ---
 
 ## 🚀 Features
 
-✅ Create short URLs from long website links  
-✅ Automatically redirect to the original website using the short URL  
-✅ Store visit history (timestamps of each visit)  
-✅ Retrieve all shortened URLs  
-✅ Delete a shortened URL  
-✅ Built on **MongoDB (localhost)** for fast local development
+✅ Shorten any valid URL via form input  
+✅ Dynamically display the shortened link on the same page (without page reload)  
+✅ Redirect to the original link via the short URL  
+✅ Track and store **visit history** (timestamps for each visit)  
+✅ Beautiful EJS-based frontend with CSS styling  
+✅ Route-based navigation: Home, About, Contact  
+✅ Designed for laptop-height screens with responsive layout
 
 ---
 
@@ -22,7 +23,9 @@ It allows you to create, retrieve, delete, and redirect shortened URLs easily.
 - ⚙️ Express.js
 - 🍃 MongoDB (Local)
 - 🔢 nanoid (For unique short ID generation)
-- 📦 Mongoose (ODM)
+- 📦 Mongoose
+- 🖼️ EJS (Templating engine)
+- 🎨 HTML + CSS (External, responsive)
 
 ---
 
@@ -30,13 +33,23 @@ It allows you to create, retrieve, delete, and redirect shortened URLs easily.
 
 ```
 project/
+├── controller/
+│   └── url.js               # Core business logic
 ├── models/
-│   └── urlModel.js          # Mongoose schema for URLs
+│   └── url.js               # Mongoose schema
 ├── routes/
-│   └── urlRoutes.js         # Route definitions (CRUD + redirect)
-├── controllers/
-│   └── urlController.js     # Logic to handle requests
-├── index.js                 # Main entry point
+│   └── url.js               # Routes (UI + API)
+├── views/
+│   ├── home.ejs             # Homepage (form + link)
+│   ├── about.ejs            # About page
+│   ├── contact.ejs          # Contact form
+│   └── partials/
+│       ├── header.ejs       # Shared header
+│       └── footer.ejs       # Shared footer
+├── public/
+│   └── css/
+│       └── style.css        # All external CSS
+├── index.js                 # Main server file
 └── README.md
 ```
 
@@ -44,11 +57,11 @@ project/
 
 ## 🛠️ Installation & Usage
 
-### 1. Clone the repo
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Tusharvermaaa/url-shortener.git
-cd url-shortener
+git clone https://github.com/Tusharvermaaa/urlShortner.git
+cd urlShortner
 ```
 
 ### 2. Install dependencies
@@ -57,7 +70,7 @@ cd url-shortener
 npm install
 ```
 
-### 3. Start MongoDB locally (Default Port: 27017)
+### 3. Start MongoDB locally
 
 Make sure MongoDB is running on your system:
 
@@ -68,22 +81,47 @@ mongod
 ### 4. Run the server
 
 ```bash
-npm run dev
+npm start
 ```
 
-By default, the server will start at `http://localhost:8003/`
+By default, the app runs at:  
+📍 `http://localhost:8003`
 
 ---
 
-## 🔌 API Endpoints
+## 🌐 App Pages
 
-### ➕ Create Short URL
+- **Home**: `/` – Shorten URL via form, display result below
+- **About**: `/about` – Info about the project
+- **Contact**: `/contact` – Contact form (EJS styled)
 
-```http
-POST /url
+---
+
+## 💡 User Instructions
+
+### ➕ Shorten a URL
+
+On the homepage (`/`):
+
+- Enter any valid URL (start from `www.` or `google.com`)
+- Click **Shorten**
+- See your shortened link appear **just below the form**
+
+### 🔁 Use the Short URL
+
+Go to:
+
+```
+http://localhost:8003/<shortid>
 ```
 
-**Body (JSON):**
+It will instantly redirect to the original long URL.
+
+---
+
+## 📄 Backend API (if needed)
+
+### `POST /url`
 
 ```json
 {
@@ -91,52 +129,28 @@ POST /url
 }
 ```
 
-## <!-- note user does not need to include http:// part it is already taken care be me , just start with www or whatever after http://  -->
+Returns:
 
-### 🔁 Redirect to Original URL
-
-```http
-GET /:shortid
+```json
+{
+  "shortid": "abc123",
+  "shorturl": "http://localhost:8003/abc123"
+}
 ```
 
-Example:
+### `GET /all` – Get all URLs
 
-```
-http://localhost:8000/abc123
-```
+### `DELETE /delete/:shortid` – Delete a URL
 
 ---
 
-### 📄 Get All URLs
+## 📊 Visit Tracking
 
-```http
-GET /all
-```
+Every visit to a short URL is stored with a timestamp in the `visithistory` array in MongoDB.
 
 ---
 
-### ❌ Delete a Short URL
-
-```http
-DELETE /:shortid
-```
-
-Example:
-
-```
-DELETE http://localhost:8000/delete/abc123
-```
-
----
-
-## 📊 Visit History
-
-Each time a shortened URL is accessed, a timestamp is stored in the `visithistory` array.  
-You can use this to track how many times a link has been used.
-
----
-
-## 📸 Sample Document (MongoDB)
+## 🧪 Sample MongoDB Document
 
 ```json
 {
@@ -147,26 +161,34 @@ You can use this to track how many times a link has been used.
     { "timestamp": 1713210495321 },
     { "timestamp": 1713210556123 }
   ],
-  "createdAt": "2024-05-20T10:15:00Z",
-  "updatedAt": "2024-05-20T10:17:30Z"
+  "createdAt": "2024-05-20T10:15:00Z"
 }
 ```
 
 ---
 
-## ✨ Future Improvements
+## ✨ Enhancements Done
 
-- ✅ Host on Render (backend) and Netlify/Vercel (frontend)
-- 🌐 Use MongoDB Atlas for a live database
-- 👨‍🎨 Add a React UI
-- 📈 Add analytics for each URL
+- ✅ Live UI with EJS and CSS
+- ✅ Dynamically prints short URL below form
+- ✅ Prevents duplicate prints on refresh
+- ✅ Centralized error handling
+- ✅ Externalized CSS (`public/css/style.css`)
+- ✅ Organized MVC architecture
+- ✅ Header and Footer with full-page height responsiveness
+
+---
+
+## 📦 Upcoming Improvements
+
+- 🌍 Host frontend + backend on Render/Vercel
+- ☁️ Switch to MongoDB Atlas for production
+- 📈 Show click count/analytics per link
+- 🔐 Add user authentication (optional)
 
 ---
 
-## 🧠 Author
+## 👨‍💻 Author
 
-Made with ❤️ by **Tushar Verma**  
-🎓 Student at **NIT Warangal**  
-🐱 GitHub: [Tusharvermaaa](https://github.com/Tusharvermaaa)
-
----
+Made with ❤️ by [**Tushar Verma**](https://github.com/Tusharvermaaa)  
+🎓 MCA Student, **NIT Warangal**
