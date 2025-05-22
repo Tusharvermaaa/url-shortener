@@ -11,7 +11,8 @@ app.set("view engine" ,"ejs"); // to render the frontend / server side rendering
 app.set("views" , path.join(__dirname , "views") ); // tell the app or express that views paths are this 
 app.use(express.static(path.join(__dirname, 'public'))); // sstatic file like css 
 // now creating the route to render the ejs pages  
-app.use(express.json());
+// app.use(express.json()); for postman json form 
+app.use(express.urlencoded({ extended: true }));  // from form data 
 app.use("/" , url_router)
 
 

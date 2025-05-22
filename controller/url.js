@@ -4,17 +4,18 @@ const urlmodel= require("../models/urlmodel");
 const {nanoid}= require("nanoid");
 async function handletheposturl(req, res)
 {
+    console.log("clicked");
     const posturl = req.body;
+    console.log(req.body);
     const id= nanoid(6);
-    console.log(typeof(id ), id );
-    console.log(req);
-    const newurlindb={...posturl , shortid: id, visithistory:[{timestamp: Date.now() }] };
+    const newurlindb={ incomingwebsite:posturl.originalUrl , shortid: id, visithistory:[{timestamp: Date.now() }] };
     urlmodel.create(newurlindb);
-    res.status(200).json({"status":"pending" , ...newurlindb});
+    const shorturl=`http://localhost:8003/${id}`;
+    // shortedurl=`http://${req.url}`
+     return res.render('home' , {shorturl});
+    // res.status(200).json({"status":"pending" , ...newurlindb});
 }
-// TypeError: Cannot read properties of null (reading 'visithistory')
-//     at redirecttosite (C:\Users\tusha\OneDrive\Desktop\node\yt----------\7(project2-acctogarg)with_mvc\controller\url.js:28:16)
-//     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
 async function showallurlsbyme(req, res)
 {
   
@@ -49,7 +50,7 @@ async function deleteparticular(req, res)
 }
 async function homepagehandler(req , res)
 {
-   res.render('home');
+   res.render('home' , {shorturl:null});
 }
 async function aboutpagehandler(req, res)
 {

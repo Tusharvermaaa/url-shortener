@@ -4,79 +4,154 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Segoe UI', sans-serif;
+.logo{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #fffaf5;
   color: #333;
 }
 
-header, footer {
-  background-color: #ff6f00;
+/* Page wrapper to force footer to bottom */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  background-color: #ff7a00; /* Orange theme */
   color: white;
-  padding: 1rem 2rem;
+  padding: 5px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-header .logo {
-  display: flex;
-  align-items: center;
+header h1 {
+  font-size: 1.8rem;
 }
 
-header .logo img {
-  height: 40px;
-  margin-right: 10px;
-}
-
-header nav a {
-  margin-left: 20px;
+nav a {
   color: white;
+  margin-left: 20px;
   text-decoration: none;
   font-weight: bold;
 }
 
-main {
-  padding: 2rem;
-  max-width: 800px;
-  margin: auto;
+nav a:hover {
+  text-decoration: underline;
 }
 
-form {
+/* Main content */
+main {
+  flex: 1;
+  padding: 40px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 440px;
 }
 
-input[type="url"],
-input[type="text"],
-input[type="email"],
-textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+/* Form styling (for contact / url shortener input) */
+form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 122, 0, 0.3);
+  width: 100%;
+  max-width: 600px;
+}
+
+form input,
+form textarea,
+form button {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
   font-size: 1rem;
 }
 
-button {
-  background-color: #ff9100;
+form button {
+  background-color: #ff7a00;
   color: white;
   border: none;
-  padding: 10px 15px;
-  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background-color: #e06700;
+}
+
+/* Footer */
+footer {
+  background-color: #ff7a00;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Utility classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* css for the short usrl  */
+.shortedurl {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff4e6; /* soft orange background */
+  border: 1px solid #ffa94d; /* orange border */
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.shortedurl:hover {
+  transform: scale(1.01);
+}
+
+.shortedurl p {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #e8590c; /* strong orange */
+}
+
+.shortedurl a {
+  display: inline-block;
+  background-color: #fa8231; /* vibrant orange */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #fb8c00;
-}
-
-.result {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: #fff3e0;
-  border: 1px solid #ffe0b2;
-  border-radius: 6px;
+.shortedurl a:hover {
+  background-color: #f76707; /* darker orange on hover */
 }
