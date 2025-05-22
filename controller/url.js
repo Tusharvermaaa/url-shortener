@@ -16,6 +16,7 @@ async function handletheposturl(req, res)
 async function showallurlsbyme(req, res)
 {
   
+     console.log(home);
     const alldata= await urlmodel.find({});
 
     res.status(200).json(alldata);
@@ -41,5 +42,14 @@ async function deleteparticular(req, res)
    const urlobj= await urlmodel.findOneAndDelete({shortid:id});
    res.json({"status": "entry delted successffully"})
 }
-
-module.exports= {handletheposturl, showallurlsbyme ,redirecttosite , sendanalytics  , deleteparticular};
+async function homepagehandler(req , res)
+{
+   res.render('home');
+}
+async function aboutpagehandler(req, res)
+{
+    res.render('about' , {"about":"this is the about page ",
+         "password ": "nahi bataunga"
+    });
+}
+module.exports= {handletheposturl, showallurlsbyme ,redirecttosite , sendanalytics  , deleteparticular , homepagehandler , aboutpagehandler};

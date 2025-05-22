@@ -1,7 +1,12 @@
 const express= require("express");
-const {handletheposturl, showallurlsbyme ,redirecttosite , sendanalytics,deleteparticular}= require("../controller/url.js"); 
+const {handletheposturl, showallurlsbyme ,redirecttosite , sendanalytics,deleteparticular , homepagehandler , aboutpagehandler}= require("../controller/url.js"); 
+
 
 const url_route=express.Router();
+ url_route.route("/")
+ .get(homepagehandler);
+url_route.route("/about")
+.get(aboutpagehandler);
 
 url_route.route("/url")
 .post(handletheposturl)
