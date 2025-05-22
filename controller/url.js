@@ -20,9 +20,7 @@ async function handletheposturl(req, res) {
 }
 
 async function showallurlsbyme(req, res) {
-  console.log(home);
   const alldata = await urlmodel.find({});
-
   res.status(200).json(alldata);
 }
 async function redirecttosite(req, res) {

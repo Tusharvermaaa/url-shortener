@@ -4,7 +4,8 @@ const {handletheposturl, showallurlsbyme ,redirecttosite , sendanalytics,deletep
 
 const url_route=express.Router();
  url_route.route("/")
- .get(homepagehandler);
+ .get(homepagehandler)
+ .post(handletheposturl); 
 url_route.route("/about")
 .get(aboutpagehandler);
 url_route.route("/contact")
@@ -13,8 +14,9 @@ url_route.route("/contact")
 ;
 
 url_route.route("/url")
-.post(handletheposturl)
 .get(showallurlsbyme);
+
+
 
 url_route.route("/:id")
 .get(redirecttosite)
