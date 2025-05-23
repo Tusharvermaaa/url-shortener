@@ -21,7 +21,7 @@ async function handletheposturl(req, res) {
 
 async function showallurlsbyme(req, res) {
   const alldata = await urlmodel.find({});
-  res.status(200).json(alldata);
+ return res.status(200).json(alldata);
 }
 async function redirecttosite(req, res) {
   const id = req.params.id;
@@ -32,7 +32,11 @@ async function redirecttosite(req, res) {
     });
   thaturlobj.visithistory.push({ timestamp: Date.now() });
   await thaturlobj.save();
-  res.redirect(`http://${thaturlobj.incomingwebsite}`);
+  console.log(thaturlobj.incomingwebsite);
+  if(thaturlobj.incomingwebsite.includes("http://"))
+    res.redirect(`${thaturlobj.incomingwebsite}`);
+
+  return res.redirect(`http://${thaturlobj.incomingwebsite}`);
 }
 async function sendanalytics(req, res) {
   const userobj = await urlmodel.findOne({ shortid: req.params.id });
@@ -42,19 +46,19 @@ async function sendanalytics(req, res) {
 async function deleteparticular(req, res) {
   const id = req.params.id;
   const urlobj = await urlmodel.findOneAndDelete({ shortid: id });
-  res.json({ status: "entry delted successffully" });
+return  res.json({ status: "entry delted successffully" });
 }
 async function homepagehandler(req, res) {
-  res.render("home", { shorturl: null });
+ return res.render("home", { shorturl: null });
 }
 async function aboutpagehandler(req, res) {
-  res.render("about", {
+ return res.render("about", {
     about: "this is the about page ",
     "password ": "nahi bataunga",
   });
 }
 async function contactpagehandler(req, res) {
-  res.render("contact", { contact: " this is contact page , happy coding " });
+ return res.render("contact", { contact: " this is contact page , happy coding " });
 }
 
 async function handlecontactdata(req, res) {
