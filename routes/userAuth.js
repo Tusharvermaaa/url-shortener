@@ -11,7 +11,7 @@ userAuth_router.route("/login")
 .post(handleUserLogin);
 
 userAuth_router.route("/")
-.get(handleUserSignupPage) // show the signup page 
+.get(handleUserSignupPage) // show the signup page
 .post(handleUserSignup);
 
 
