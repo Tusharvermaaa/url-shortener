@@ -1,6 +1,6 @@
 const express= require("express");
 const path = require("path");
-const connect_to_database= require("./views/view.js");
+const {connect_to_database}= require("./views/view.js");
 const app= express();
 const url_router= require("./routes/url.js");
 const userAuth_router = require("./routes/userAuth.js");

@@ -13,6 +13,6 @@ const user_schema= new mongoose.Schema({
         type: String, 
     }
 })
-const user_model= mongoose.model("userofurl" , user_schema);
+const user_model= mongoose.model("contact" , user_schema);
 
 module.exports=user_model;

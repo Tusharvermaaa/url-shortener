@@ -1,22 +1,26 @@
-const express= require("express");
+const express = require("express");
 const mongoose = require("mongoose");
 
-const url_schema= new mongoose.Schema({
-   incomingwebsite:{
-    type:String , 
-    required: true 
-   } , 
-   shortid:{
-    required:true , 
-    type : String , 
-    unique : true
-   },
-   visithistory:[
-    {timestamp: {type: Number}}
-   ]
+const url_schema = new mongoose.Schema(
+  {
+    incomingwebsite: {
+      type: String,
+      required: true,
+    },
+    shortid: {
+      required: true,
+      type: String,
+      unique: true,
+    },
+    createdby: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "userAuths",
+    },
+    visithistory: [{ timestamp: { type: Number } }],
+  },
+  { timestamps: true }
+);
 
-} , {timestamps: true});
+const urlmodel = mongoose.model("url", url_schema);
 
-const urlmodel = mongoose.model("url" , url_schema);
-
-module.exports= urlmodel;
+module.exports = urlmodel;
