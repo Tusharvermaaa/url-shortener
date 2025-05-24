@@ -1,5 +1,5 @@
 const express = require("express");
-const {giveui} = require("../views/view");
+const { giveui } = require("../views/view");
 const urlmodel = require("../models/urlmodel");
 const { nanoid } = require("nanoid");
 const user_model = require("../models/usermodel");
@@ -15,21 +15,27 @@ async function handletheposturl(req, res) {
     createdby: res.user._id,
   };
   urlmodel.create(newurlindb);
-  const shorturl = `http://localhost:8003/${id}`;
+  const shorturl = `http://localhost:8003/red/${id}`;
   // shortedurl=`http://${req.url}`
   return res.render("home", { shorturl });
   // res.status(200).json({"status":"pending" , ...newurlindb});
 }
 
 async function showallurlsbyme(req, res) {
-  const onlyid=res.user._id;
-  const alldata = await urlmodel.find({createdby:onlyid});
-   
-  return res.render('allurls' , {alldatas:giveui(alldata)});
+  const onlyid = res.user._id;
+  console.log(req);
+  const origin=req.get('host');
+  console.log(origin);
+  const alldata = await urlmodel.find({ createdby: onlyid });
+
+  return res.render("allurls", {
+    alldatas: giveui(alldata, origin),
+  });
   // return res.status(200).json(alldata);
 }
 async function redirecttosite(req, res) {
   const id = req.params.id;
+  console.log(id);
   const thaturlobj = await urlmodel.findOne({ shortid: id });
   if (!thaturlobj)
     return res.json({
@@ -39,9 +45,11 @@ async function redirecttosite(req, res) {
   await thaturlobj.save();
   console.log(thaturlobj.incomingwebsite);
   if (thaturlobj.incomingwebsite.includes("http://"))
-    res.redirect(`${thaturlobj.incomingwebsite}`);
-
-  return res.redirect(`http://${thaturlobj.incomingwebsite}`);
+    return res.redirect(`${thaturlobj.incomingwebsite}`);
+  else if(thaturlobj.incomingwebsite.includes("https://"))
+    return res.redirect(`${thaturlobj.incomingwebsite}`);
+  else
+  return res.redirect(`https://${thaturlobj.incomingwebsite}`);
 }
 async function sendanalytics(req, res) {
   const userobj = await urlmodel.findOne({ shortid: req.params.id });

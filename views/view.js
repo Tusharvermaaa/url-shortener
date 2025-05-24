@@ -5,9 +5,10 @@ function connect_to_database(url) {
     .then(() => console.log("database connected successfully"))
     .catch((err) => console.log("connection issue ", err));
 }
-function giveui(alldata) {
+function giveui(alldata , origin ) {
+     
   const uitosend = alldata.map((data) => {
-     return `<li>${data.incomingwebsite} : ${data.updatedAt}</li>`;
+     return `<li>${data.incomingwebsite} : <a href="http://${origin}/red/${data.shortid} ">http://${origin}/red/${data.shortid} </a> : ${data.updatedAt}</li>`;
   });
 //   console.log(uitosend);
   return uitosend;

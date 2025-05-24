@@ -8,11 +8,12 @@
     <link rel="icon" href="/images/logo.png" type="image/x-icon" />
   </head>
   <body>
-    <%- include("partials/header") %> <% if(alldatas) { %>
-    <p>all data is here <%- alldatas %></p>
-    <% } %>
+    <%- include("partials/header") %>
     <main class="main-section">
-      <h1>dfdfd</h1>
+      <% if(alldatas) { %>
+        <h3>All shorted-urls</h3>
+      <ul><%- alldatas %></ul>
+      <% } %>
     </main>
 
     <%- include("partials/footer") %>
