@@ -3,6 +3,7 @@ const { giveui } = require("../views/view");
 const urlmodel = require("../models/urlmodel");
 const { nanoid } = require("nanoid");
 const user_model = require("../models/usermodel");
+
 async function handletheposturl(req, res) {
   // console.log("clicked");
   const posturl = req.body;
@@ -16,13 +17,16 @@ async function handletheposturl(req, res) {
       visithistory: [{ timestamp: Date.now() }],
       createdby: res.user._id,
     };
+    const origin = req.get("host");
     urlmodel.create(newurlindb);
-    const shorturl = `http://localhost:8003/red/${id}`;
+    console.log(req.URL);
+    const shorturl = `http://${origin}/red/${id}`;
+    // const shorturl = `http://localhost:8003/red/${id}`;
     // shortedurl=`http://${req.url}`
     return res.render("home", { shorturl });
-  }catch (err) {
+  } catch (err) {
     console.log(err);
-    return res.render("home" , {shorturl:null});
+    return res.render("home", { shorturl: null });
   }
 
   // res.status(200).json({"status":"pending" , ...newurlindb});
