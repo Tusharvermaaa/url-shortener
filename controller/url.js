@@ -8,23 +8,30 @@ async function handletheposturl(req, res) {
   const posturl = req.body;
   // console.log(req);
   const id = nanoid(6);
-  const newurlindb = {
-    incomingwebsite: posturl.originalUrl,
-    shortid: id,
-    visithistory: [{ timestamp: Date.now() }],
-    createdby: res.user._id,
-  };
-  urlmodel.create(newurlindb);
-  const shorturl = `http://localhost:8003/red/${id}`;
-  // shortedurl=`http://${req.url}`
-  return res.render("home", { shorturl });
+  try {
+    new URL(posturl.originalUrl);
+    const newurlindb = {
+      incomingwebsite: posturl.originalUrl,
+      shortid: id,
+      visithistory: [{ timestamp: Date.now() }],
+      createdby: res.user._id,
+    };
+    urlmodel.create(newurlindb);
+    const shorturl = `http://localhost:8003/red/${id}`;
+    // shortedurl=`http://${req.url}`
+    return res.render("home", { shorturl });
+  }catch (err) {
+    console.log(err);
+    return res.render("home" , {shorturl:null});
+  }
+
   // res.status(200).json({"status":"pending" , ...newurlindb});
 }
 
 async function showallurlsbyme(req, res) {
   const onlyid = res.user._id;
   console.log(req);
-  const origin=req.get('host');
+  const origin = req.get("host");
   console.log(origin);
   const alldata = await urlmodel.find({ createdby: onlyid });
 
@@ -46,10 +53,9 @@ async function redirecttosite(req, res) {
   console.log(thaturlobj.incomingwebsite);
   if (thaturlobj.incomingwebsite.includes("http://"))
     return res.redirect(`${thaturlobj.incomingwebsite}`);
-  else if(thaturlobj.incomingwebsite.includes("https://"))
+  else if (thaturlobj.incomingwebsite.includes("https://"))
     return res.redirect(`${thaturlobj.incomingwebsite}`);
-  else
-  return res.redirect(`https://${thaturlobj.incomingwebsite}`);
+  else return res.redirect(`https://${thaturlobj.incomingwebsite}`);
 }
 async function sendanalytics(req, res) {
   const userobj = await urlmodel.findOne({ shortid: req.params.id });

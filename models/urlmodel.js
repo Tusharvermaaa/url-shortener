@@ -24,3 +24,4 @@ const url_schema = new mongoose.Schema(
 const urlmodel = mongoose.model("url", url_schema);
 
 module.exports = urlmodel;
+// models will be imported in index.js (main file) 
