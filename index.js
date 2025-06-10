@@ -1,12 +1,14 @@
+const dotenv = require("dotenv");
+dotenv.config(); // to use the env variables
 const express = require("express");
 const path = require("path");
 const { connect_to_database } = require("./views/view.js");
 const app = express();
 const url_router = require("./routes/url.js");
 const userAuth_router = require("./routes/userAuth.js");
-const PORT = 8003;
-// const databaseurl = "mongodb://127.0.0.1:27017/";
-const databaseurl="mongodb+srv://tv24mcf1r50:Tv24mcf1r50@shortner.8qv4yh0.mongodb.net/?retryWrites=true&w=majority&appName=shortner";
+const PORT = process.env.PORT;
+const localhosturl = "mongodb://127.0.0.1:27017/";
+const databaseurl=process.env.DATABASE_URL;// || localhosturl;
 const restrictnonloginers = require("./middleware/userAuth.js");
 const cookieParser = require("cookie-parser");
 const public_router = require("./routes/public.js");
