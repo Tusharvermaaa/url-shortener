@@ -289,3 +289,41 @@ footer {
   gap: 33px;
   max-width:max-content;
 }
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  nav a {
+    display: block;
+    margin: 10px 0;
+  }
+
+  main {
+    padding: 20px 10px;
+    align-items: stretch;
+  }
+
+  form {
+    padding: 20px;
+    box-shadow: none;
+    border: none;
+  }
+
+  .shortedurl {
+    margin: 20px 10px;
+    padding: 15px;
+  }
+
+  .signup-container,
+  .auth-form {
+    padding: 20px;
+    margin: 20px 10px;
+  }
+
+  h1, h2 {
+    font-size: 1.5rem;
+  }
+}
